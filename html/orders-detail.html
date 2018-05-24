@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>orders-details</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ordersdetail.css"/>
+    
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav nav-top">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">Done</h1>
+	</header>
+	<div class="mui-content mui-fullscreen content">
+		<div class="scroll">
+			<div class="mui-card" id="foodDetail">
+				<div class="mui-card-header">
+					<div class="header"></div>
+				</div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<ul class="mui-table-view mui-table-view-chevron">
+							<!--<li class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left store-logo" src="../img/restaurants/Big T Takeaways.png">
+								<div class="mui-pull-right">$46</div>
+								<div class="mui-media-body">
+									Chow Mein
+									<p class="mui-ellipsis">× 4</p>
+								</div>
+							</li>
+							<li class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left store-logo" src="../img/restaurants/Yum Yum Takeaways.jpg">
+								<div class="mui-pull-right">$46</div>
+								<div class="mui-media-body">
+									Yum Yum Takeaways
+									<p class="mui-ellipsis quantity">× 4</p>
+								</div>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<div class="footer">
+						<p class="mui-pull-right total-amount" id="totalAmount"></p>
+						Total
+					</div>
+				</div>
+			</div>
+			<div class="mui-card" id='orderDetail'>
+				<div class="mui-card-header">
+					<div class="header">Details</div>
+				</div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						<div class='list-item'>
+							<p class="mui-pull-right" id="code"></p>
+							Code
+						</div>
+						<div class='list-item'>
+							<p class="mui-pull-right" id="payment"></p>
+							Payment
+						</div>
+						<div class='list-item'>
+							<p class="mui-pull-right" id="time"></p>
+							Time
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" charset="UTF-8">
+		var wd=null;
+		
+		(function($,doc){
+      		$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+      		
+      		function setInnerHtml(selector, html){
+      			doc.querySelector(selector).innerHTML=html;
+      		};
+      		
+      		function init(code){
+      			$.getJSON('../data/orders.json',{},function(data){
+      				data.forEach(function(val,index){
+      					if(val.code==code){
+      						setInnerHtml('.mui-title',val.status);
+      						setInnerHtml('#code',val.code);
+      						setInnerHtml('#payment',val.payment);
+      						setInnerHtml('#time',val.time);
+      						setInnerHtml('#totalAmount','$'+val.totalAmount);
+      						setInnerHtml('#foodDetail .header', val.restaurant.name);
+      						
+	      					var table=doc.querySelector('#foodDetail .mui-table-view');
+							table.innerHTML='';
+							val.food.forEach(function(e){
+								var li=doc.createElement('li');
+								li.className='mui-table-view-cell mui-media';
+								li.innerHTML='<img class="mui-media-object mui-pull-left store-logo" src="../img/food/'+ ((e.img=='')?'default.jpg':e.img) +'"><div class="mui-pull-right">$'+e.amount+'</div><div class="mui-media-body">'+ e.name +'<p class="mui-ellipsis quantity">× '+e.quantity+'</p></div>';
+								table.appendChild(li);
+							});
+	      				}
+      				});
+				});
+      		};
+			
+			$.plusReady(function(){
+				doc.addEventListener('init',function(event){
+					init(event.detail.code);
+				});
+			});
+		}(mui,document));
+    </script>
+</body>
+</html>

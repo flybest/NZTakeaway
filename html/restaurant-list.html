@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>restaurant-list</title>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/restaurant.css"/>
+	</head>
+	<body>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content content">
+			<!--数据列表-->
+			<ul class="mui-table-view mui-table-view-chevron">
+			</ul>
+		</div>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			(function($, doc){
+				$.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						down: {
+							style:'circle',
+							contentinit: 'pull down to refresh',
+		                    contentdown: 'pull down to refresh',
+		                    contentover: 'release to refresh',
+		                    contentrefresh: 'refreshing...',
+							callback: pulldownRefresh
+						},
+						up: {
+							auto:false,
+							contentinit: 'pull up to show more',
+		                    contentdown: 'pull up to show more',
+		                    contentrefresh: 'loading...',
+		                    contentnomore: 'No more restaurant',
+							callback: pullupRefresh
+						}
+					}
+				});
+				
+				var g_sortItem = "rate";
+				var g_asc = false;
+				function sortData(arr, item, isAsc){
+					var len = arr.length;
+				    for (var i = 0; i < len; i++) {
+				        for (var j = 0; j < len - 1 - i; j++) {
+				            if ((!isAsc && arr[j][item] < arr[j+1][item]) || (isAsc && arr[j][item] > arr[j+1][item])) {        
+				                var temp = arr[j+1];        
+				                arr[j+1] = arr[j];
+				                arr[j] = temp;
+				            }
+				        }
+				    }
+				    return arr;
+				};
+	
+				function refreshData(direction) {
+					$.getJSON('../data/takeaways.json',{},function(data){
+						var table=doc.querySelector('.mui-table-view');
+						table.innerHTML='';
+						sortData(data,g_sortItem,g_asc).forEach(function(e){
+							var p='';
+							for(var i=1;i<=5;i++){
+								if(i<=e.rate)
+									p+='<span class="iconfont icon-star rate active"></span>';
+								else
+									p+='<span class="iconfont icon-star rate"></span>'
+							}
+							var li=doc.createElement('li');
+							li.className='mui-table-view-cell mui-media';
+							li.setAttribute('data-target', e.id);
+							li.innerHTML='<div class="mui-pull-left store-logo-object"><img class="store-logo" src="../img/restaurants/'+ e.img +'"><span class="mui-badge mui-badge-danger hidden">0</span></div><div class="mui-pull-right store-distance"><span class="iconfont icon-location-arrow arrow"></span><span class="mui-tab-label">'+ ((e.distance>=1000)?(e.distance/1000)+ ' km': e.distance+' m') + '</span></div><div class="mui-media-body">'+e.name +'<p class="mui-ellipsis">'+p+' '+e.rate+'</p><p class="mui-ellipsis"><span class="mui-badge mui-badge-danger label">orders p.m</span> 10</p><p class="mui-ellipsis"><span class="mui-badge mui-badge-danger label">discount</span> none</p></div>';
+							table.appendChild(li);
+						});
+					
+						if(direction=='up')
+							$('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						else if(direction=='down')
+							$('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							
+						refreshBadge();	
+						$.fire(plus.webview.getWebviewById('restaurant-map'), 'addMarks', {'data': data});
+						$.toast("Data Refreshed");
+					});
+				};
+				
+				function refreshBadge(){
+					var cart = JSON.parse(plus.storage.getItem('cart'));
+					if(!cart)
+						return;
+					
+					var list = doc.querySelectorAll('li[data-target]');
+					
+					for(var i=0;i<list.length;i++){
+						var val=list[i].getAttribute('data-target');
+						if(cart[val]){
+							var totalQuantity=0;
+							list[i].classList.add('has-food');
+							for(var food in cart[val]){
+								if(cart[val][food].quantity){
+									totalQuantity+=cart[val][food].quantity;
+								}
+							}
+							list[i].querySelector('.mui-badge').innerHTML=totalQuantity;
+						}else{
+							list[i].classList.remove('has-food');
+						}
+					}
+				};
+				
+				/**
+				 * 下拉刷新具体业务实现
+				 */
+				function pulldownRefresh() {
+					refreshData('down');
+				};
+							
+				function pullupRefresh() {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				};
+			
+				$.plusReady(function(){
+					$('.mui-table-view').on('tap','.mui-table-view-cell',function(){
+						$.fire(plus.webview.getWebviewById('food'),'init',{resId: this.getAttribute('data-target')});
+						$.openWindow({id:'food'});
+					});
+					
+					doc.addEventListener('refreshRestaurantList',function(event){
+						if(event.detail.sortItem){
+							g_sortItem=event.detail.sortItem;
+							g_asc=(event.detail.asc=='asc')?true:false;
+						}
+						refreshData();
+					});
+					
+					doc.addEventListener('refreshBadge',function(event){
+						refreshBadge();
+					});
+				});
+			}(mui,document));
+		</script>
+	</body>
+
+</html>

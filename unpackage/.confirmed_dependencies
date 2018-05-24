@@ -1,0 +1,97 @@
+{
+  "index.html": {
+    "href": "index.html",
+    "priority": 0,
+    "resources": [
+      "html/food.html",
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/index.css",
+      "js/mui.min.js",
+      "html/restaurant.html"
+    ],
+    "refer": [
+      "html/orders.html",
+      "html/me.html",
+      "html/food.html",
+      "html/food-map.html",
+      "html/food-list.html",
+      "html/restaurant.html",
+      "html/restaurant-map.html",
+      "html/restaurant-list.html",
+      "html/orders-list.html",
+      "html/changepwd.html",
+      "html/signin.html",
+      "html/orders-detail.html",
+      "html/checkout.html",
+      "html/feedback.html",
+      "html/orders-signin.html"
+    ]
+  },
+  "html/food.html": {
+    "resources": [
+      "html/food-list.html"
+    ],
+    "refer": [
+      "html/food-map.html",
+      "html/food-list.html"
+    ]
+  },
+  "html/restaurant.html": {
+    "resources": [
+      "html/restaurant-list.html",
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/restaurant.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "html/restaurant-map.html",
+      "html/restaurant-list.html"
+    ]
+  },
+  "html/orders.html": {
+    "href": "html/orders.html",
+    "priority": 0,
+    "resources": [
+      "html/orders-list.html"
+    ],
+    "refer": [
+      "html/orders-list.html",
+      "html/orders-signin.html"
+    ]
+  },
+  "html/me.html": {
+    "href": "html/me.html",
+    "priority": 0,
+    "refer": [
+      "html/changepwd.html"
+    ]
+  },
+  "html/restaurant-map.html": {
+    "href": "html/restaurant-map.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/leaflet.css",
+      "css/restaurant.css",
+      "js/mui.min.js",
+      "js/leaflet.js",
+      "img/map/restaurant_pinlet.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/restaurant-list.html": {
+    "href": "html/restaurant-list.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/restaurant.css",
+      "js/mui.min.js",
+      "data/takeaways.json"
+    ],
+    "refer": [],
+    "priority": 0
+  }
+}

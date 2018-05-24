@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Change password</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/changepwd.css"/>
+    
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav nav-top">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1  class="mui-title">Change your password</h1>
+	</header>
+	<div class="mui-content content">
+		<div id='changePwd' class="mui-input-group">
+			<div class="mui-input-row">
+				<label>Old<span class="red-font"> *</span></label>
+				<input id="oripwd" type="password" class="mui-input-clear" placeholder="input current password">
+			</div>
+			<div class="mui-input-row">
+				<label>New</label>
+				<input id="newpwd" type="password" class="mui-input-clear" placeholder="input new password">
+			</div>
+			<div class="mui-input-row">
+				<label>Confirm</label>
+				<input id="confirmpwd" type="password" class="mui-input-clear" placeholder="confirm new password">
+			</div>
+		</div>
+			
+		<button id='changeBtn' class="mui-btn mui-btn-block mui-btn-success submit">Submit</button>
+	</div>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/mui.enterfocus.js" ></script>
+	<script type="text/javascript" src="../js/errorcode.js" ></script>
+	<script type="text/javascript" charset="UTF-8">
+		var wd=null;
+		
+		(function($,doc){
+      		$.init({});
+      		
+      		function init(){
+      			var inputs=$('input');
+      			
+      			for(var obj in inputs){
+      				inputs[obj].value='';
+      			}
+      		}
+			
+			$.plusReady(function(){
+				init();
+				
+				var changeBtn=document.getElementById('changeBtn');
+				changeBtn.addEventListener('tap',function(){
+					var oripwd=document.getElementById('oripwd');
+					var newpwd=document.getElementById('newpwd');
+					var confirmpwd=document.getElementById('confirmpwd');
+					if(!oripwd.value){
+						mui.toast(errorCode.EMPTY_ORIPASSWORD);
+						return;
+					}
+					if(!newpwd.value){
+						mui.toast(errorCode.EMPTY_NEWPASSWORD);
+						return;
+					}
+					if(!confirmpwd.value){
+						mui.toast(errorCode.EMPTY_CONFIRMPASSWORD);
+						return;
+					}
+					if(newpwd.value!=confirmpwd.value){
+						mui.toast(errorCode.DIFF_PASSWORD);
+						return;
+					}
+					
+					wd = plus.nativeUI.showWaiting("Please Wait...",{back:"none"});
+					setTimeout(function(){
+						wd.close();
+						mui.toast('Password has been changed');
+					},2000);
+				});
+				
+				$.enterfocus('#changePwd input', function() {
+					$.trigger(changeBtn, 'tap');
+				});
+				
+				doc.addEventListener('init',function(event){
+					init();
+				});
+			});
+		}(mui,document));
+    </script>
+</body>
+</html>

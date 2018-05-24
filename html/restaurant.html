@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>restaurant</title>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/animate.css"/>
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/restaurant.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav nav-top">
+			<h1 class="location"><span class="mui-icon iconfont icon-location"></span><span class="location-name animated flash">Locating.....</span></h1>
+			<div class="mui-input-row mui-search search">
+				<input id="search" type="search" class="mui-input-clear" placeholder=" What would you like?">
+			</div>
+			<div class="mui-input-row filter">
+				<div class="mui-pull-left filter-block active" data-filter-type="rate" data-sort="desc">Popularity</div>
+				<div class="mui-pull-left filter-block" data-filter-type="distance" data-sort="asc">Distance</div>
+				<div class="mui-pull-right filter-block" data-filter-type="map">
+					<span class="iconfont icon-map"></span>
+				</div>
+			</div>
+		</header>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			(function($, doc){
+				$.init({});
+				
+				function init(){
+					var target=doc.querySelector('.filter-block.active').getAttribute('data-filter-type');
+					if(target=='map'){
+						plus.webview.hide('restaurant-list');
+						plus.webview.show('restaurant-map');
+					}else{
+						plus.webview.hide('restaurant-map');
+						plus.webview.show('restaurant-list');
+					}
+				};
+
+				$.plusReady(function(){
+					init();
+					
+					setTimeout(function(){
+						$('.location-name')[0].innerText='Invercargill';
+						$('.location-name')[0].classList.remove('flash');
+						$.fire(plus.webview.getWebviewById('restaurant-list'),'refreshRestaurantList',{});
+					},2000);
+				
+					$('.filter').on('tap', '.filter-block', function(e){
+						if(this.classList.contains('active'))
+							return;
+						
+						$('.filter-block').each(function(){
+							this.classList.remove('active');						
+						});
+						
+						this.classList.add('active');
+						switch(this.getAttribute('data-filter-type')){
+							case 'map':
+								sortItem='rate';
+								plus.webview.hide('restaurant-list');
+								plus.webview.show('restaurant-map');
+								break;
+							default:
+								sortItem=this.getAttribute('data-filter-type');
+								asc=this.getAttribute('data-sort');
+								$.fire(plus.webview.getWebviewById('restaurant-list'),'refreshRestaurantList',{'sortItem':sortItem, 'asc':asc});
+								plus.webview.hide('restaurant-map');
+								plus.webview.show('restaurant-list');
+								break;
+						};
+					});
+					
+					doc.getElementById('search').addEventListener('keypress',function(e){
+						var that=this;
+						if(e.keyCode==13){
+							mui.alert('No server, no search', 'Alert', function() {
+								that.value='';
+							});
+						}
+					},false);
+					
+					doc.addEventListener('init',function(event){
+						init();
+						$.fire(plus.webview.getWebviewById('restaurant-list'),'refreshBadge',{});
+					});
+				});
+			}(mui,document));
+		</script>
+	</body>
+
+</html>

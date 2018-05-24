@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Sign in</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/changepwd.css"/>
+    
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav nav-top">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1  class="mui-title">Sign in</h1>
+	</header>
+	<div id="signinPart" class="mui-content content">
+		<p class='hint'>Please sign in first to enjoy the service, or <a id="signupLink" class="sign" data-target="signupPart" data-content="Sign up">Sign up</a></p>
+		<div id='signinControls' class="mui-input-group">
+			<div class="mui-input-row">
+				<label>Account</label>
+				<input id="userName" type="text" class="mui-input-clear" placeholder="input your account">
+			</div>
+			<div class="mui-input-row">
+				<label>Password</label>
+				<input id="password" type="password" class="mui-input-clear" placeholder="input your password">
+			</div>
+		</div>
+		<button id='signinBtn' class="mui-btn mui-btn-block mui-btn-success submit">Submit</button>
+	</div>
+	<div id="signupPart" class="mui-content content mui-hidden">
+		<p class='hint'>Already has an account? Please <a id="signinLink" class="sign" data-target='signinPart' data-content="Sign in">Sign in</a></p>
+		<div id='signinControls' class="mui-input-group">
+			<div class="mui-input-row">
+				<label>Account</label>
+				<input id="account" type="text" class="mui-input-clear" placeholder="input your account">
+			</div>
+			<div class="mui-input-row">
+				<label>Password</label>
+				<input id="pwd" type="password" class="mui-input-clear" placeholder="input your password">
+			</div>
+			<div class="mui-input-row">
+				<label>Name</label>
+				<input id="realname" type="text" class="mui-input-clear" placeholder="input your legal name">
+			</div>
+			<div class="mui-input-row">
+				<label>Phone</label>
+				<input id="phone" type="text" class="mui-input-clear" placeholder="input your phone number">
+			</div>
+		</div>
+		<button id='signupBtn' class="mui-btn mui-btn-block mui-btn-success submit">Submit</button>
+	</div>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/mui.enterfocus.js" ></script>
+	<script type="text/javascript" src="../js/userinfo.js" ></script>
+	<script type="text/javascript" src="../js/errorcode.js" ></script>
+	<script type="text/javascript" charset="UTF-8">
+		var wd=null;
+		
+		(function($,doc){
+      		$.init({});
+      		
+      		function init(){
+      			var inputs=$('input');
+      			
+				for(var obj in inputs){
+      				inputs[obj].value='';
+      			}
+				
+				$.trigger(doc.getElementById('signinLink'),'tap');
+      		};
+			
+			$.plusReady(function(){
+				init();
+				
+				$('body').on('tap','.sign', function(){
+					doc.querySelector('.mui-title').innerHTML=this.getAttribute('data-content');
+					doc.querySelectorAll('.content').forEach(function(val,index){
+						val.classList.add('mui-hidden');
+					})
+					doc.getElementById(this.getAttribute('data-target')).classList.remove('mui-hidden');	
+				});
+				
+				var signinBtn=document.getElementById('signinBtn');
+				signinBtn.addEventListener('tap',function(){
+					var username=document.getElementById('userName');
+					var pasword=document.getElementById('password');
+					if(!username.value){
+						mui.toast(errorCode.EMPTY_USERNAME);
+						return;
+					}
+					if(!pasword.value){
+						mui.toast(errorCode.EMPTY_PASSWORD);
+						return;
+					}
+					
+					wd = plus.nativeUI.showWaiting("Please Wait...",{back:"none"});
+					setTimeout(function(){
+						wd.close();
+						
+						userInfo.username('admin');
+						userInfo.realname('Peter ***');
+						userInfo.tel('027***1622');
+						$.fire(plus.webview.getWebviewById('me'),'init',{});
+						$.fire(plus.webview.getWebviewById('orders'),'init',{});
+						$.back();
+					},2000);
+				});
+				
+				$.enterfocus('#signinControls input', function() {
+					$.trigger(signinBtn, 'tap');
+				});
+				
+				doc.addEventListener('init',function(event){
+					init();
+				});
+			});
+		}(mui,document));
+    </script>
+</body>
+</html>

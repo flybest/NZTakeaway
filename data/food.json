@@ -1,0 +1,58 @@
+[{
+	"name": "CHOW MEIN",
+	"id": 100,
+	"items":[{
+		"name":"Chicken Chow Mein",
+		"price":11.5,
+		"id":100001,
+		"img":""
+	},{
+		"name":"Beef Chow Mein",
+		"price":11.5,
+		"id":100002,
+		"img":""
+	},{
+		"name":"Combination Chow Mein",
+		"price":11.5,
+		"id":100003,
+		"img":""
+	}]
+},{
+	"name": "FRIED RICE",
+	"id": 101,
+	"items":[{
+		"name":"Chicken Fried Rice",
+		"price":11.5,
+		"id":101001,
+		"img":""
+	},{
+		"name":"Beef Fried Rice",
+		"price":11.5,
+		"id":101002,
+		"img":""
+	},{
+		"name":"Combination Fried Rice",
+		"price":11.5,
+		"id":101003,
+		"img":""
+	}]
+},{
+	"name": "FISH & CHIPS",
+	"id": 102,
+	"items":[{
+		"name":"Battered Fish (Hoki)",
+		"price":3.2,
+		"id":102001,
+		"img":""
+	},{
+		"name":"Battered Fish Bites",
+		"price":1.5,
+		"id":102002,
+		"img":""
+	},{
+		"name":"Paua Patties",
+		"price":3.5,
+		"id":102003,
+		"img":""
+	}]
+}]

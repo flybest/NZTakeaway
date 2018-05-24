@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>orders-signin</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/iconfont.css"/>
+		<link rel="stylesheet" href="../css/orders.css"/>
+	</head>
+	<body>
+		<div class="mui-content content">
+			<p class='hint'>To view history orders, please Sign in</p>
+			<button class="mui-btn mui-btn-success submit">Go to sign in</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script>
+			(function($,doc){
+				$.init({});
+				$.plusReady(function(){
+					doc.querySelector('.submit').addEventListener('tap',function(){
+						$.fire(plus.webview.getWebviewById('signin'),'init',{});
+						$.openWindow({id:"signin"});
+					});
+				});
+			}(mui, document))
+		</script>
+	</body>
+</html>

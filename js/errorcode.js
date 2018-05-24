@@ -1,0 +1,26 @@
+/*没考虑清除要不要用，先放着吧*/
+var errorCode={
+	EMPTY_USERNAME:"Please input your account",
+	EMPTY_PASSWORD:"Please input your password",
+	EMPTY_ORIPASSWORD:"Please input your current password",
+	EMPTY_NEWPASSWORD:"Please input your new password",
+	EMPTY_CONFIRMPASSWORD:"Please confirm your new password",
+	EMPTY_FEEDBACK:"Please input your feedback",
+	INVALID_USER:"用户不存在",
+	INVALID_PASSWORD:"用户密码错误",
+	INVALID_TOKEN:"认证信息错误，请重新登录",
+	FAILED_NETWORK:"网络连接失败",
+	FAILED_NETWORK_VALIDATE:"网络连接异常，验证失败，请重新登录",
+	FAILED_LOADED:"加载失败，请重试",
+	FAILED_LOCATED:"获取定位信息失败，请重试或手动输入",
+	FAILED_DOWNLOAD:"下载失败",
+	FAILED_DEL:"删除数据失败",
+	FAILED_COMPRESSIMG:"图像处理失败",
+	FAILED_UPLOAD:"上传失败",
+	DIFF_PASSWORD:"Two new passwords are not the same",
+	BAD_DATA:"数据异常，无法显示全部，请联系管理员",
+	PERMISSION_DENIED:"未获取对应权限",
+	POSITION_UNAVAILABLE:"无法获取位置信息",
+	TIMEOUT:"操作超时",
+	UNKNOW_ERROR:"未知错误，无法处理"
+};

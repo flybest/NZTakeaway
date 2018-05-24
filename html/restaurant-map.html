@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>restaurant-map</title>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/leaflet.css" />
+		<link rel="stylesheet" href="../css/restaurant.css"/>
+	</head>
+	<body>
+		<div id="map" class="content map-content"></div>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			(function($, doc){
+				$.init({});
+			
+				var g_map;
+				var g_markers=[];
+				var g_markerGroup;
+				function initMap() {
+				    g_map = L.map('map', {
+				        attributionControl:false,
+				        zoomControl:false
+				    }).setView([-46.412384, 168.354022], 13);
+				    L.tileLayer('http://mt3.google.com/vt/lyrs=b@131,r@240000000&hl=en&gl=en&x={x}&y={y}&z={z}&s=Ga', {}).addTo(g_map);
+				};
+				
+				function getPosition(){
+					plus.geolocation.getCurrentPosition(function(geoData){
+						L.circle([geoData.coords.latitude, geoData.coords.longitude], 15,{
+							color: '#279cf9',
+							fillColor: '#279cf9',
+							fillOpacity: 0.8
+	      				}).addTo(g_map);
+					},function(err){
+					});
+				};
+				
+				function addMarkers(data){
+					if (g_markerGroup) {
+		                g_map.removeLayer(g_markerGroup);
+		                g_markerGroup=null;
+		                g_markers=[];
+		            }
+					
+					for(var obj in data){
+						var res=data[obj];
+						var myIcon = L.icon({iconUrl:'../img/map/restaurant_pinlet.png',iconSize: [23, 32]});
+                			var marker=L.marker([res.latitude, res.longitude],{icon:myIcon, id:res.id}).bindPopup('<p>'+res.name+'</p><p class="mui-text-center"><button type="button" class="mui-btn mui-btn-primary res-marker" data-target="'+ res.id +'">Choose</button></p>');
+                			g_markers.push(marker);
+//              			marker.on('click',function(e){
+//		                    $('body').trigger('select.station',{
+//		                       targetId: e.target.options.id
+//		                    });
+//		                    //zzt 20161117
+//		                    App.scrollTo($('#alert-area'));
+//		               });
+					}
+			
+		            g_markerGroup = L.featureGroup(g_markers);
+		            g_map.addLayer(g_markerGroup);
+				};
+			
+				$.plusReady(function(){
+					initMap();
+					getPosition();
+					
+					$('.map-content').on('tap','.res-marker',function(){
+						$.fire(plus.webview.getWebviewById('food'),'init',{resId: this.getAttribute('data-target')});
+						$.openWindow({id:'food'});
+					});
+					
+					doc.addEventListener('addMarks', function(event){
+						var markData = event.detail.data;
+						addMarkers(markData);
+					});
+				});
+			}(mui,document));
+		</script>
+	</body>
+
+</html>

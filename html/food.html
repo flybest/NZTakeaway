@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>food</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/iconfont.css"/>
+		<link rel="stylesheet" href="../css/food.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav nav-top">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="mui-input-row mui-search search">
+				<input id="search" type="search" class="mui-input-clear" placeholder=" What would you like?">
+			</div>
+			<div class="mui-input-row filter">
+				<div class='mui-col-xs-4'>
+					<div class="filter-block filter-active" data-target="food-list">Selection</div>
+				</div>
+				<div class='mui-col-xs-4'>
+					<div class="filter-block" data-target="comment-list">Comment</div>
+				</div>
+				<div class='mui-col-xs-4'>
+					<div class="filter-block" data-target="restaurant-profile">Restaurant</div>
+				</div>
+			</div>
+		</header>
+		<div id="food-list" class="mui-content mui-row mui-fullscreen food-list">
+			<div class="mui-col-xs-3">
+				<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted">
+				</div>
+			</div>
+			<div id="segmentedControlContents" class="mui-col-xs-9">	
+			</div>
+			<nav class="mui-bar bottom-bar">
+				<div class="mui-pull-left cart">
+					<span class='mui-icon iconfont icon-cart'>
+						<span class="mui-badge" id="item-count">0</span>
+					</span>
+				</div>
+				<div class="mui-pull-left amount" id="item-amount">$0</div>
+				<div class="mui-pull-right checkout">Check out</div>
+			</nav>
+		</div>
+		<div id="comment-list" class="mui-content mui-row mui-fullscreen comment-list mui-hidden">
+			<p class="comment">No Comment</p>
+		</div>
+		<div id="restaurant-profile" class="mui-content mui-row mui-fullscreen restaurant-profile mui-hidden">
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+					<img id="res-img" src=""></img>
+				</div>
+				<div class="mui-input-row">
+					<label for="">Name</label>
+					<input id="res-name" type="text" value="" readonly="true">
+				</div>
+				<div class="mui-input-row">
+					<label for="">Popolarity</label>
+					<input id="res-rate" type="text" value="" readonly="true">
+				</div>
+				<div class="mui-input-row">
+					<label for="">Address</label>
+					<input id="res-address" type="text" value="" readonly="true">
+				</div>
+				<div class="mui-input-row">
+					<label for="">Phone</label>
+					<input id="res-phone" type="text" value="" readonly="true">
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script>
+			(function($, doc){
+				$.init({
+					swipeBack: true, //启用右滑关闭功能
+					beforeback: function() {
+						$.fire(plus.webview.getWebviewById('restaurant-list'),'refreshBadge',{});
+    					}					
+				});
+				
+				function createContent(data){
+					var controls = document.getElementById("segmentedControls");
+					var contents = document.getElementById("segmentedControlContents");
+					controls.innerHTML="";
+					contents.innerHTML="";
+					
+					var htmlControl = [];
+					var htmlContent = [];
+
+					for (var i = 0; i < data.length; i++) {
+						htmlControl.push('<a class="mui-control-item" data-index="' + data[i].id + '" href="#content' + data[i].id + '">' + data[i].name + '</a>');
+						htmlContent.push('<div id="content' + data[i].id + '" class="mui-control-content"><ul class="mui-table-view">');
+						for (var j = 0; j < data[i].items.length; j++) {
+							htmlContent.push('<li class="mui-table-view-cell"><img class="mui-media-object mui-pull-left food-logo" src="'+ ((data[i].items[j].img!='')?'../img/food/'+data[i].items[j].img:'../img/food/default.jpg') +'"><div class="add-food" data-id="'+data[i].items[j].id +'" data-name="'+data[i].items[j].name+'" data-price="'+data[i].items[j].price+'"><span class="iconfont icon-minus control minus"></span><span class="control quantity">0</span><span class="iconfont icon-plus control plus"></span></div><div class="mui-media-body food-name">'+data[i].items[j].name +'<p class="mui-ellipsis">$'+ data[i].items[j].price+'</p></div></li>');
+						}
+						htmlContent.push('</ul></div>');
+					}
+					controls.innerHTML = htmlControl.join('');
+					contents.innerHTML = htmlContent.join('');
+					//默认选中第一个
+					controls.querySelector('.mui-control-item').classList.add('mui-active');
+					
+					var controlsElem = document.getElementById("segmentedControls");
+					var contentsElem = document.getElementById("segmentedControlContents");
+					var controlListElem = controlsElem.querySelectorAll('.mui-control-item');
+					var contentListElem = contentsElem.querySelectorAll('.mui-control-content');
+					var controlWrapperElem = controlsElem.parentNode;
+					var controlWrapperHeight = controlWrapperElem.offsetHeight;
+					var controlMaxScroll = controlWrapperElem.scrollHeight - controlWrapperHeight;//左侧类别最大可滚动高度
+					var maxScroll = contentsElem.scrollHeight - contentsElem.offsetHeight;//右侧内容最大可滚动高度
+					var controlHeight = controlListElem[0].offsetHeight;//左侧类别每一项的高度
+					var controlTops = []; //存储control的scrollTop值
+					var contentTops = [0]; //存储content的scrollTop值
+					var length = contentListElem.length;
+					for (var i = 0; i < length; i++) {
+						controlTops.push(controlListElem[i].offsetTop + controlHeight);
+					}
+					for (var i = 1; i < length; i++) {
+						var offsetTop = contentListElem[i].offsetTop;
+						if (offsetTop + 100 >= maxScroll) {
+							var height = Math.max(offsetTop + 100 - maxScroll, 100);
+							var totalHeight = 0;
+							var heights = [];
+							for (var j = i; j < length; j++) {
+								var offsetHeight = contentListElem[j].offsetHeight;
+								totalHeight += offsetHeight;
+								heights.push(totalHeight);
+							}
+							for (var m = 0, len = heights.length; m < len; m++) {
+								contentTops.push(parseInt(maxScroll - (height - heights[m] / totalHeight * height)));
+							}
+							break;
+						} else {
+							contentTops.push(parseInt(offsetTop));
+						}
+					}
+					contentsElem.addEventListener('scroll', function() {
+						var scrollTop = contentsElem.scrollTop;
+						for (var i = 0; i < length; i++) {
+							var offsetTop = contentTops[i];
+							var offset = Math.abs(offsetTop - scrollTop);
+	//						console.log("i:"+i+",scrollTop:"+scrollTop+",offsetTop:"+offsetTop+",offset:"+offset);
+							if (scrollTop < offsetTop) {
+								if (scrollTop >= maxScroll) {
+									onScroll(length - 1);
+								} else {
+									onScroll(i - 1);
+								}
+								break;
+							} else if (offset < 20) {
+								onScroll(i);
+								break;
+							}else if(scrollTop >= maxScroll){
+								onScroll(length - 1);
+								break;
+							}
+						}
+					});
+					var lastIndex = 0;
+					//监听content滚动
+					var onScroll = function(index) {
+						if (lastIndex !== index) {
+							lastIndex = index;
+							var lastActiveElem = controlsElem.querySelector('.mui-active');
+							lastActiveElem && (lastActiveElem.classList.remove('mui-active'));
+							var currentElem = controlsElem.querySelector('.mui-control-item:nth-child(' + (index + 1) + ')');
+							currentElem.classList.add('mui-active');
+							//简单处理左侧分类滚动，要么滚动到底，要么滚动到顶
+							var controlScrollTop = controlWrapperElem.scrollTop;
+							if (controlScrollTop + controlWrapperHeight < controlTops[index]) {
+								controlWrapperElem.scrollTop = controlMaxScroll;
+							} else if (controlScrollTop > controlTops[index] - controlHeight) {
+								controlWrapperElem.scrollTop = 0;
+							}
+						}
+					};
+					//滚动到指定content
+					var scrollTo = function(index) {
+						contentsElem.scrollTop = contentTops[index];
+					};
+					
+					$(controlsElem).on('tap', '.mui-control-item', function(e) {
+						scrollTo(this.getAttribute('data-index'));
+						return false;
+					});
+				};
+				
+				function loadReataurant(data, resId){
+					data.forEach(function(val,index){
+						if(val.id==resId){
+							doc.getElementById('res-img').setAttribute('src','../img/restaurants/'+val.img);
+							doc.getElementById('res-name').value=val.name;
+							doc.getElementById('res-rate').value=val.rate;
+							doc.getElementById('res-address').value=val.address;
+							doc.getElementById('res-phone').value=val.phone;
+							g_resName=val.name;
+						}
+					});
+				};
+				
+				function refreshCart(){
+					var hasFood=doc.querySelectorAll('.has-food');
+					for(var i=0;i<hasFood.length;i++)
+						hasFood[i].classList.remove('has-food');
+					
+					var cart = JSON.parse(plus.storage.getItem('cart'));
+					var totalQuantity=0;
+					var amount=0;
+					var isThisRes=false;
+					
+					if(cart){
+						for(var index in cart){
+							if(index==g_resId)
+								isThisRes=true;
+								
+							for(var index1 in cart[index]){								
+								if(cart[index][index1].quantity){
+									if(isThisRes){
+										var div=document.querySelector('.add-food[data-id="'+index1+'"]');
+										div.classList.add('has-food');
+										div.querySelector('.quantity').innerHTML=cart[index][index1].quantity;
+									}
+									totalQuantity+=cart[index][index1].quantity;
+									amount+= (cart[index][index1].quantity*cart[index][index1].price);
+								}
+							}
+							isThisRes=false;
+						}
+					}
+					
+					if(totalQuantity>0){
+						doc.querySelector('.bottom-bar').classList.add('bottom-active');
+						doc.querySelector('.checkout').classList.add('checkout-active');
+						doc.getElementById('item-count').innerHTML=totalQuantity;
+						doc.getElementById('item-amount').innerHTML="$"+amount.toFixed(1);
+					}else{
+						doc.querySelector('.bottom-bar').classList.remove('bottom-active');
+						doc.querySelector('.checkout').classList.remove('checkout-active');
+						doc.getElementById('item-count').innerHTML=0;
+						doc.getElementById('item-amount').innerHTML="$0";
+					}
+				};
+				
+				var g_resId;
+				var g_resName;
+				$.plusReady(function(){
+					
+					$.getJSON("../data/food.json",{},function(data){
+						createContent(data);
+					});
+					
+					$('.filter').on('tap', '.filter-block', function(e){
+						if(this.classList.contains('filter-active'))
+							return;
+						
+						var preSelection = $('.filter-active')[0];
+						preSelection.classList.remove('filter-active');
+						doc.getElementById(preSelection.getAttribute('data-target')).classList.add('mui-hidden');
+						
+						this.classList.add('filter-active');
+						doc.getElementById(this.getAttribute('data-target')).classList.remove('mui-hidden');
+					
+					});
+					
+					$('body').on('tap','.plus',function(e){
+						var foodId= this.parentNode.getAttribute('data-id');
+						var cart = JSON.parse(plus.storage.getItem('cart'));
+						if(cart==null)
+							cart={};
+
+						if(!cart[g_resId])
+							cart[g_resId]={"name":g_resName};
+							
+						if(cart[g_resId][foodId]){
+							cart[g_resId][foodId].quantity+=1;
+						}else{
+							cart[g_resId][foodId]={"name":this.parentNode.getAttribute('data-name'),"price":Number(this.parentNode.getAttribute('data-price')),"quantity":1};
+						}
+						
+						plus.storage.setItem('cart', JSON.stringify(cart));
+						
+						refreshCart();
+					});
+					
+					$('body').on('tap','.minus',function(e){
+						var foodId= this.parentNode.getAttribute('data-id');
+						var cart = JSON.parse(plus.storage.getItem('cart'));
+						if(cart==null)
+							cart={};
+
+						if(!cart[g_resId] && !cart[g_resId][foodId])
+							return;
+						
+						cart[g_resId][foodId].quantity-=1;
+						if(cart[g_resId][foodId].quantity==0)
+							delete cart[g_resId][foodId];
+							
+						if(Object.keys(cart[g_resId]).length<=1)
+							delete cart[g_resId];
+						
+						plus.storage.setItem('cart', JSON.stringify(cart));
+						
+						refreshCart();
+					});
+					
+					$('body').on('tap','.checkout-active',function(e){
+						$.fire(plus.webview.getWebviewById('checkout'),'init',{});
+						$.openWindow({id: 'checkout'});
+					})
+			
+					doc.getElementById('search').addEventListener('keypress',function(e){
+						var that=this;
+						if(e.keyCode==13){
+							mui.alert('No server, no search', 'Alert', function() {
+								that.value='';
+							});
+						}
+					},false);
+					
+					doc.addEventListener('init', function(event){
+						g_resId=event.detail.resId;
+						$.trigger(doc.querySelector('.filter-block'), 'tap');
+						refreshCart();
+						$.getJSON('../data/takeaways.json',{},function(data){
+							loadReataurant(data, g_resId);
+						})
+					},false);
+				});
+				
+			}(mui, document));
+			
+		</script>
+
+	</body>
+
+</html>

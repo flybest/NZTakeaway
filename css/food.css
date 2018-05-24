@@ -1,0 +1,216 @@
+.nav-top{
+	background-color: #279cf9;
+	color:white;
+	height:auto;
+	padding:0;
+}
+
+.nav-top .mui-action-back{
+	color:#fff;
+	padding-left:20px !important;
+}
+
+.nav-top .search{
+	left:44px;
+	right:44px;
+	margin: 2px 0px 1px 0px;
+	position: absolute;
+}
+
+.nav-top .search input{
+	background-color: white;
+	border-radius: 2px;
+}
+
+.nav-top .mui-active.search input{
+	background: rgba(0,0,0,.1);
+}
+
+.nav-top .filter{
+	background-color: white;
+	color:#999;
+	font-size: 15px;
+}
+
+.mui-input-row>[class*="mui-col-"]{
+	float:left;
+}
+
+.nav-top .filter .filter-block{
+	margin:5px 15px;
+	text-align: center;
+}
+
+.nav-top .filter .filter-block.filter-active{
+	color:#444;
+}
+
+.nav-top~.mui-content{
+    padding-top: 76px;
+}
+
+.mui-row.mui-fullscreen>[class*="mui-col-"]{
+	height: 100%;
+	padding-bottom: 50px;
+}
+
+.mui-col-xs-3,
+.mui-col-xs-9 {
+	overflow-y: auto;
+	height: 100%;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+	line-height: 50px;
+	width: 100%;
+	display: block;
+	color:#bbb;
+	font-size: 10px;
+	text-align: left;
+	padding-left:5px;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	background-color: #fff;
+	border: 0;
+	color:#000;
+}
+
+.mui-control-content{
+	display: block;
+}
+
+.bottom-bar{
+	-webkit-box-shadow: 0 0 1px rgba(175, 169, 169, 0.46);
+    box-shadow: 0 0 1px rgba(175, 169, 169, 0.46);
+    bottom: 0px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.9) ;
+    padding:0;
+    color: #777;
+}
+
+.bottom-bar.bottom-active .cart{
+	color: #279cf9;
+}
+
+.bottom-bar.bottom-active .amount{
+	color: #fff;
+}
+
+.bottom-bar.bottom-active .cart .mui-badge{
+	display: block;
+}
+
+.bottom-bar.bottom-active .checkout{
+	color:#fff;
+	background-color: #00cc6e;
+}
+
+.bottom-bar .cart{
+    padding: 5px 20px;
+}
+
+.bottom-bar .cart .icon-cart{
+    font-size: 40px;
+    line-height: 40px;
+    padding:0;
+}
+
+.bottom-bar .cart .mui-badge{
+	display: none;
+}
+
+.bottom-bar .amount{
+	padding: 15px 0;
+    font-size: 20px;
+}
+
+.bottom-bar .checkout{
+	float: right;
+    font-size: 20px;
+    padding: 15px 15px;
+    line-height: 20px;
+    background-color: #444;
+}
+
+.bottom-bar .checkout-active{
+
+}
+
+.comment-list.mui-content .comment{
+	font-size: 15px;
+	text-align: center;
+	padding:20px 0;
+}
+
+.food-list.mui-content .mui-table-view-cell{
+	font-size: 12px;
+}
+
+.food-list.mui-content .food-logo{
+	width: 50px;
+	height: 50px;
+	max-width: none;
+	margin-right:15px
+}
+
+.food-list.mui-content .add-food{
+	/*padding: 19px 0 5px 5px;
+    text-align: center;*/
+    color: #279cf9;
+    position: absolute;
+    right: 15px;
+    bottom: 11px;
+}
+
+.food-list.mui-content .add-food.has-food .quantity,
+.food-list.mui-content .add-food.has-food .minus{
+	display: inline-block !important;	
+}
+
+.food-list.mui-content .mui-table-view-cell .add-food .minus{
+	display: none;
+}
+
+.food-list.mui-content .mui-table-view-cell .add-food .quantity{
+	color:#000;
+	display: none;
+}
+
+.food-list.mui-content .add-food .control{
+	display: inline-block;
+	font-size: 20px;
+    line-height: 20px;
+    padding: 0px 5px;
+    transition: all 0.5s;
+}
+
+.food-list.mui-content .add-food .control:first-child{
+	padding-left:0;
+}
+
+.food-list.mui-content .add-food .control:last-child{
+	padding-right:0;
+}
+
+.food-list.mui-content .food-name{
+	
+}
+
+.food-list.mui-content .food-name p{
+	padding: 8px 0px;
+    color: #f00;
+    font-size: 15px;
+}
+
+.restaurant-profile .mui-input-group .mui-input-row:first-child{
+	height: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.restaurant-profile .mui-input-group .mui-input-row input{
+    text-align: right;
+    color:#999;
+}

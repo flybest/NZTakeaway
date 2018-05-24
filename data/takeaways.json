@@ -1,0 +1,131 @@
+[{
+  "name": "Moon's Chinese Restaurant & Takeaways",
+  "rate": 3.6,
+  "address": "290 Ettrick St, Invercargill, 9812",
+  "phone": "03-216 4805",
+  "latitude": -46.4184696,
+  "longitude": 168.3535598,
+  "img": "Moon's Chinese Restaurant & Takeaways.jpg",
+  "distance": 800,
+  "id": 1
+},{
+  "name": "Big T Takeaways",
+  "rate": 4.5,
+  "address": "109 Clyde St, West Invercargill, Invercargill 9810",
+  "phone": "03-218 9566",
+  "latitude": -46.4191024,
+  "longitude":168.3383293,
+  "img": "Big T Takeaways.png",
+  "distance": 850,
+  "id": 2
+},{
+  "name": "Yum Yum Takeaways",
+  "rate": 4.4,
+  "address": "116 Yarrow St, Invercargill, 9810",
+  "phone": "03-214 6368",
+  "latitude": -46.417445,
+  "longitude": 168.3497018,
+  "img": "Yum Yum Takeaways.jpg",
+  "distance": 600,
+  "id": 3
+},{
+  "name": "Martin Street Takeaways",
+  "rate": 3.5,
+  "address": "6a Martin St, Strathern, Invercargill 9812",
+  "phone": "03-218 8209",
+  "latitude": -46.4278981,
+  "longitude": 168.3531159,
+  "img": "Martin Street Takeaways.jpg",
+  "distance": 1600,
+  "id": 4
+},{
+  "name": "Ocean Chinese Takeaway",
+  "rate": 4.2,
+  "address": "282 Dee St, Avenal, Invercargill 9810",
+  "phone": "03-218 9101",
+  "latitude": -46.4011282,
+  "longitude": 168.3448399,
+  "img":"Ocean Chinese Takeaway.jpg",
+  "distance": 1600,
+  "id": 5
+},{
+  "name": "Centre St Ascot Chinese",
+  "rate": 4.0,
+  "address": "Centre St, Heidelberg, Invercargill 9812",
+  "phone": "03-216 3617",
+  "latitude": -46.4225424,
+  "longitude": 168.3753707,
+  "img":"Centre St Ascot Chinese.png",
+  "distance": 2400,
+  "id": 6
+},{
+  "name": "Ascot Chinese Takeaways",
+  "rate": 4.0,
+  "address": "698A Tay St, Hawthorndale, Invercargill 9810",
+  "phone": "03-217 7261",
+  "latitude": -46.4062,
+  "longitude": 168.39187,
+  "img": "Ascot Chinese Takeaways.jpg",
+  "distance": 2900,
+  "id": 7
+},{
+  "name": "Enter The Dragon Takeaways",
+  "rate": 4.4,
+  "address": "Gladstone, Invercargill 9810",
+  "phone": "03-218 9402",
+  "latitude": -46.3935366,
+  "longitude": 168.3448993,
+  "img": "Enter The Dragon Takeaways.jpg",
+  "distance": 2400,
+  "id": 8
+},{
+  "name": "Tanner Street Takeaways",
+  "rate": 3.5,
+  "address": "32 Tanner St, Grasmere, Invercargill 9810",
+  "phone": "03-215 9313",
+  "latitude": -46.3867487,
+  "longitude": 168.3370393,
+  "img": "Tanner Street Takeaways.jpg",
+  "distance": 3300,
+  "id": 9
+},{
+  "name": "Otatara Chinese Takeaway",
+  "rate": 3.1,
+  "address": "Dunns Rd, Invercargill 9879",
+  "phone": "03-213 0300",
+  "latitude": -46.4319002,
+  "longitude": 168.2735324,
+  "img": "Otatara Chinese Takeaway.jpg",
+  "distance": 5300,
+  "id": 10
+},{
+  "name": "Mong Kok Takeaways",
+  "rate": 4.4,
+  "address": "52 Windsor St, Windsor, Invercargill 9810",
+  "phone": "03-217 8012",
+  "latitude": -46.4050578,
+  "longitude": 168.3588808,
+  "img": "Mong Kok Takeaways.png",
+  "distance": 2200,
+  "id": 11
+},{
+  "name": "Glengarry Takeaways",
+  "rate": 4.4,
+  "address": "71 Glengarry Cres, Glengarry, Invercargill 9810",
+  "phone": "03-217 3157",
+  "latitude": -46.4017465,
+  "longitude": 168.3676678,
+  "img": "Glengarry Takeaways.jpg",
+  "distance": 2600,
+  "id": 12
+},{
+  "name": "Herbert St Takeaways",
+  "rate": 4.0,
+  "address": "122 Herbert St, Gladstone, Invercargill 9810",
+  "phone": "03-218 4515",
+  "latitude": -46.4052919,
+  "longitude": 168.3427446,
+  "img": "Herbert St Takeaways.png",
+  "distance": 2100,
+  "id": 13
+}]

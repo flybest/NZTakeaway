@@ -1,0 +1,71 @@
+{
+  "html/orders.html": {
+    "href": "html/orders.html",
+    "priority": 0
+  },
+  "html/me.html": {
+    "href": "html/me.html",
+    "priority": 1
+  },
+  "html/restaurant.html": {
+    "href": "html/restaurant.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.eot",
+      "fonts/iconfont.ttf",
+      "fonts/iconfont.svg",
+      "css/restaurant.css",
+      "js/mui.min.js"
+    ],
+    "priority": 2
+  },
+  "html/restaurant-map.html": {
+    "href": "html/restaurant-map.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.eot",
+      "fonts/iconfont.ttf",
+      "fonts/iconfont.svg",
+      "css/leaflet.css",
+      "css/restaurant.css",
+      "js/mui.min.js",
+      "js/leaflet.js",
+      "img/map/restaurant_pinlet.png"
+    ],
+    "priority": 3
+  },
+  "html/restaurant-list.html": {
+    "href": "html/restaurant-list.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.eot",
+      "fonts/iconfont.ttf",
+      "fonts/iconfont.svg",
+      "css/restaurant.css",
+      "js/mui.min.js",
+      "data/takeaways.json"
+    ],
+    "priority": 4
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.eot",
+      "fonts/iconfont.ttf",
+      "fonts/iconfont.svg",
+      "css/index.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  }
+}

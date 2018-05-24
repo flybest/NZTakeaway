@@ -1,0 +1,62 @@
+.nav-top{
+	background-color: #279cf9;
+	color:white;
+	height:auto;
+	padding:0 15px;
+	min-height:44px;
+}
+
+.nav-top h4{
+	font-size: 16px;
+	line-height: 16px;
+	padding:9px 0px;
+}
+
+.nav-top .avatar{
+	max-width: 60px;
+	margin-right: 15px;
+}
+
+.nav-top .profile{
+	padding: 10px 0px 20px 0;
+	overflow: hidden;
+}
+
+.nav-top .profile p{
+	color: #fff;
+	margin-bottom: 0;
+	padding:5px;
+	font-size: 15px;
+}
+
+.nav-top .profile .signin{
+	padding: 15px 0;
+    font-size: 25px;
+    line-height: 25px;
+    width: 200px;
+}
+
+.mui-bar-nav~.mui-content{
+	padding-top: 139px;
+}
+
+.mui-content .mui-table-view{
+	margin-top:8px;
+}
+
+.prefix-icon{
+	font-size: 20px;
+	margin-right: 5px;
+}
+
+.description{
+	
+}
+
+.logout{
+	margin-top: 20px;
+    border-radius: 0;
+    padding: 9px 0;
+}
+
+

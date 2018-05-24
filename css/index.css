@@ -1,0 +1,8 @@
+.bottom-bar{
+	-webkit-box-shadow: 0 0 1px rgba(175, 169, 169, 0.46);
+    box-shadow: 0 0 1px rgba(175, 169, 169, 0.46);
+}
+
+.mui-bar-tab .mui-tab-item.mui-active{
+	color: #279cf9;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>checkout</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ordersdetail.css"/>
+    
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav nav-top">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">Check out</h1>
+	</header>
+	<div class="mui-content mui-fullscreen content">
+		<div class="scroll">
+			
+		</div>
+		<nav class="mui-bar bottom-bar bottom-active">
+			<div class="mui-pull-left amount" id="total-amount">$0</div>
+			<div class="mui-pull-right checkout">Pay</div>
+		</nav>
+	</div>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" charset="UTF-8">
+		var wd=null;
+		
+		(function($,doc){
+      		$.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+      		
+      		function setInnerHtml(selector, html){
+      			doc.querySelector(selector).innerHTML=html;
+      		};
+      		
+      		function refreshContent(){
+      			doc.querySelector('.scroll').innerHTML='';
+      			var cart = JSON.parse(plus.storage.getItem('cart'));
+      			
+      			var totalAmount=0;
+      			if(cart){
+      				for(var index in cart){
+      					var html='<div class="mui-card"><div class="mui-card-header"><div class="header">'+ cart[index].name +'</div></div><div class="mui-card-content"><div class="mui-card-content-inner"><ul class="mui-table-view mui-table-view-chevron">';
+      					var storeAmount=0;
+							
+						for(var index1 in cart[index]){								
+							if(cart[index][index1].quantity){
+								html+='<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left store-logo" src="../img/food/default.jpg"><div class="mui-pull-right">$'+ cart[index][index1].quantity*cart[index][index1].price +'</div><div class="mui-media-body">'+ cart[index][index1].name +'<p class="mui-ellipsis">× '+ cart[index][index1].quantity +'</p></div></li>';
+								storeAmount+=cart[index][index1].quantity*cart[index][index1].price;
+							}
+						}
+						html+='</ul></div></div><div class="mui-card-footer"><div class="footer"><p class="mui-pull-right total-amount">$'+ storeAmount +'</p>Total</div></div></div>';
+						doc.querySelector('.scroll').innerHTML+=html;
+						totalAmount+=storeAmount;
+					}
+      				
+					doc.querySelector('#total-amount').innerHTML="$"+totalAmount;			
+      			}else{
+      				$.back();
+      			}
+      		};
+			
+			$.plusReady(function(){
+				doc.addEventListener('init',function(event){
+					refreshContent();
+				});
+				
+				doc.querySelector('.checkout').addEventListener('tap',function(){
+					alert("Thank you for using this application");
+				});
+			});
+		}(mui,document));
+    </script>
+</body>
+</html>

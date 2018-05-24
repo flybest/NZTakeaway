@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Feedback</title>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/changepwd.css"/>
+    
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav nav-top">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1  class="mui-title">Feedback</h1>
+	</header>
+	<div class="mui-content content">
+		<p class='hint'>Help us to get improvement</p>
+		<div id='feedback' class="mui-input-group">
+			<textarea id="feedbackContent" rows="5" placeholder="Tell me something ..."></textarea>
+		</div>
+			
+		<button id='submitBtn' class="mui-btn mui-btn-block mui-btn-success submit">Submit</button>
+	</div>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/errorcode.js" ></script>
+	<script type="text/javascript" charset="UTF-8">
+		var wd=null;
+		
+		(function($,doc){
+      		$.init({});
+      		
+      		function init(){
+      			var inputs=$('textarea');
+      			
+      			for(var obj in inputs){
+      				inputs[obj].value='';
+      			}
+      		}
+			
+			$.plusReady(function(){
+				init();
+				
+				var submitBtn=document.getElementById('submitBtn');
+				submitBtn.addEventListener('tap',function(){
+					var feedbackContent=document.getElementById('feedbackContent');
+
+					if(!feedbackContent.value){
+						mui.toast(errorCode.EMPTY_FEEDBACK);
+						return;
+					}
+					
+					wd = plus.nativeUI.showWaiting("Please Wait...",{back:"none"});
+					setTimeout(function(){
+						wd.close();
+						$.back();
+						mui.toast('Thank you for helping us');
+					},2000);
+				});
+				
+				doc.addEventListener('init',function(event){
+					init();
+				});
+			});
+		}(mui,document));
+    </script>
+</body>
+</html>
