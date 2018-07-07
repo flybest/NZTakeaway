@@ -15,6 +15,7 @@
 		<div id="map" class="content map-content"></div>
 		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/leaflet.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/leaflet.twofingerzoom.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			(function($, doc){
 				$.init({});
@@ -25,20 +26,35 @@
 				function initMap() {
 				    g_map = L.map('map', {
 				        attributionControl:false,
-				        zoomControl:false
+				        zoomControl:false,
+				        twoFingerZoom: true
 				    }).setView([-46.412384, 168.354022], 13);
 				    L.tileLayer('http://mt3.google.com/vt/lyrs=b@131,r@240000000&hl=en&gl=en&x={x}&y={y}&z={z}&s=Ga', {}).addTo(g_map);
 				};
 				
 				function getPosition(){
 					plus.geolocation.getCurrentPosition(function(geoData){
+//						alert('success.message');
 						L.circle([geoData.coords.latitude, geoData.coords.longitude], 15,{
 							color: '#279cf9',
 							fillColor: '#279cf9',
 							fillOpacity: 0.8
 	      				}).addTo(g_map);
 					},function(err){
-					});
+//						alert('err.message');
+						alert(err.message);
+					},{provider:'system'});
+					
+					//浏览器自带的定位功能
+//					navigator.geolocation.getCurrentPosition(function(geoData){
+//						L.circle([position.coords.latitude, position.coords.longitude], 15,{
+//							color: '#279cf9',
+//							fillColor: '#279cf9',
+//							fillOpacity: 0.8
+//	      				}).addTo(g_map);
+//					}, function(err){
+//						alert(err.message);
+//					});
 				};
 				
 				function addMarkers(data){
@@ -70,7 +86,8 @@
 					initMap();
 					getPosition();
 					
-					$('.map-content').on('tap','.res-marker',function(){
+					// 这里写成click事件是因为在safari这个变态浏览器中，tap无法注册。
+					$('.map-content').on('click','.res-marker',function(){
 						$.fire(plus.webview.getWebviewById('food'),'init',{resId: this.getAttribute('data-target')});
 						$.openWindow({id:'food'});
 					});

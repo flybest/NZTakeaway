@@ -49,16 +49,16 @@
 							
 						for(var index1 in cart[index]){								
 							if(cart[index][index1].quantity){
-								html+='<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left store-logo" src="../img/food/default.jpg"><div class="mui-pull-right">$'+ cart[index][index1].quantity*cart[index][index1].price +'</div><div class="mui-media-body">'+ cart[index][index1].name +'<p class="mui-ellipsis">× '+ cart[index][index1].quantity +'</p></div></li>';
+								html+='<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left store-logo" src="../img/food/default.jpg"><div class="mui-pull-right">$'+ (cart[index][index1].quantity*cart[index][index1].price).toFixed(1) +'</div><div class="mui-media-body">'+ cart[index][index1].name +'<p class="mui-ellipsis">× '+ cart[index][index1].quantity +'</p></div></li>';
 								storeAmount+=cart[index][index1].quantity*cart[index][index1].price;
 							}
 						}
-						html+='</ul></div></div><div class="mui-card-footer"><div class="footer"><p class="mui-pull-right total-amount">$'+ storeAmount +'</p>Total</div></div></div>';
+						html+='</ul></div></div><div class="mui-card-footer"><div class="footer"><p class="mui-pull-right total-amount">$'+ storeAmount.toFixed(1) +'</p>Total</div></div></div>';
 						doc.querySelector('.scroll').innerHTML+=html;
 						totalAmount+=storeAmount;
 					}
       				
-					doc.querySelector('#total-amount').innerHTML="$"+totalAmount;			
+					doc.querySelector('#total-amount').innerHTML="$"+totalAmount.toFixed(1);			
       			}else{
       				$.back();
       			}

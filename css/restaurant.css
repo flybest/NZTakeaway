@@ -129,5 +129,9 @@ html,body,.map-content{
 	box-sizing: border-box;
 }
 
+.map-content .res-marker{
+	cursor:pointer;
+}
+
 
 

@@ -1,71 +1,57 @@
 {
   "html/orders.html": {
     "href": "html/orders.html",
+    "resources": [],
     "priority": 0
+  },
+  "html/checkout.html": {
+    "href": "html/checkout.html",
+    "resources": [],
+    "priority": 1
+  },
+  "html/signin.html": {
+    "href": "html/signin.html",
+    "resources": [],
+    "priority": 2
+  },
+  "html/orders-detail.html": {
+    "href": "html/orders-detail.html",
+    "resources": [],
+    "priority": 3
+  },
+  "html/feedback.html": {
+    "href": "html/feedback.html",
+    "resources": [],
+    "priority": 4
   },
   "html/me.html": {
     "href": "html/me.html",
-    "priority": 1
+    "resources": [],
+    "priority": 5
   },
   "html/restaurant.html": {
     "href": "html/restaurant.html",
-    "resources": [
-      "css/mui.min.css",
-      "fonts/mui.ttf",
-      "css/iconfont.css",
-      "fonts/iconfont.eot",
-      "fonts/iconfont.ttf",
-      "fonts/iconfont.svg",
-      "css/restaurant.css",
-      "js/mui.min.js"
-    ],
-    "priority": 2
+    "resources": [],
+    "priority": 6
   },
-  "html/restaurant-map.html": {
-    "href": "html/restaurant-map.html",
-    "resources": [
-      "css/mui.min.css",
-      "fonts/mui.ttf",
-      "css/iconfont.css",
-      "fonts/iconfont.eot",
-      "fonts/iconfont.ttf",
-      "fonts/iconfont.svg",
-      "css/leaflet.css",
-      "css/restaurant.css",
-      "js/mui.min.js",
-      "js/leaflet.js",
-      "img/map/restaurant_pinlet.png"
-    ],
-    "priority": 3
+  "html/orders-list.html": {
+    "href": "html/orders-list.html",
+    "resources": [],
+    "priority": 7
   },
-  "html/restaurant-list.html": {
-    "href": "html/restaurant-list.html",
-    "resources": [
-      "css/mui.min.css",
-      "fonts/mui.ttf",
-      "css/iconfont.css",
-      "fonts/iconfont.eot",
-      "fonts/iconfont.ttf",
-      "fonts/iconfont.svg",
-      "css/restaurant.css",
-      "js/mui.min.js",
-      "data/takeaways.json"
-    ],
-    "priority": 4
+  "html/orders-signin.html": {
+    "href": "html/orders-signin.html",
+    "resources": [],
+    "priority": 9
   },
-  "index.html": {
-    "href": "index.html",
-    "resources": [
-      "css/mui.min.css",
-      "fonts/mui.ttf",
-      "css/iconfont.css",
-      "fonts/iconfont.eot",
-      "fonts/iconfont.ttf",
-      "fonts/iconfont.svg",
-      "css/index.css",
-      "js/mui.min.js"
-    ],
-    "refer": [],
-    "priority": 0
+  "html/changepwd.html": {
+    "href": "html/changepwd.html",
+    "resources": [],
+    "priority": 10
+  },
+  "html/food.html": {
+    "href": "html/food.html",
+    "resources": [],
+    "priority": 12
   }
 }

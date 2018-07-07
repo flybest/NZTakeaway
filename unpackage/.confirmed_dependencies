@@ -30,7 +30,14 @@
   },
   "html/food.html": {
     "resources": [
-      "html/food-list.html"
+      "html/food-list.html",
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/food.css",
+      "js/mui.min.js",
+      "data/food.json",
+      "img/food/default.jpg",
+      "data/takeaways.json"
     ],
     "refer": [
       "html/food-map.html",
@@ -43,7 +50,8 @@
       "css/mui.min.css",
       "css/iconfont.css",
       "css/restaurant.css",
-      "js/mui.min.js"
+      "js/mui.min.js",
+      "css/animate.css"
     ],
     "refer": [
       "html/restaurant-map.html",
@@ -54,7 +62,12 @@
     "href": "html/orders.html",
     "priority": 0,
     "resources": [
-      "html/orders-list.html"
+      "html/orders-list.html",
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/orders.css",
+      "js/mui.min.js",
+      "js/userinfo.js"
     ],
     "refer": [
       "html/orders-list.html",
@@ -66,6 +79,14 @@
     "priority": 0,
     "refer": [
       "html/changepwd.html"
+    ],
+    "resources": [
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/me.css",
+      "js/mui.min.js",
+      "js/userinfo.js",
+      "img/users/default-user.png"
     ]
   },
   "html/restaurant-map.html": {
@@ -90,6 +111,87 @@
       "css/restaurant.css",
       "js/mui.min.js",
       "data/takeaways.json"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/checkout.html": {
+    "href": "html/checkout.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/ordersdetail.css",
+      "js/mui.min.js",
+      "img/food/default.jpg"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/signin.html": {
+    "href": "html/signin.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/changepwd.css",
+      "js/mui.min.js",
+      "js/mui.enterfocus.js",
+      "js/userinfo.js",
+      "js/errorcode.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/orders-detail.html": {
+    "href": "html/orders-detail.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/ordersdetail.css",
+      "js/mui.min.js",
+      "data/orders.json"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/feedback.html": {
+    "href": "html/feedback.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/changepwd.css",
+      "js/mui.min.js",
+      "js/errorcode.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/orders-list.html": {
+    "href": "html/orders-list.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/orders.css",
+      "js/mui.min.js",
+      "data/orders.json"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/orders-signin.html": {
+    "href": "html/orders-signin.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/iconfont.css",
+      "css/orders.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/changepwd.html": {
+    "href": "html/changepwd.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/changepwd.css",
+      "js/mui.min.js",
+      "js/mui.enterfocus.js",
+      "js/errorcode.js"
     ],
     "refer": [],
     "priority": 0
